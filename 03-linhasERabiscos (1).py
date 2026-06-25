@@ -1,18 +1,25 @@
 from tkinter import *
 from tkinter import ttk
 
+COR_BORDA = 'black'
+COR_PREENCHIMENTO = 'lightblue'
+
 # Quando mouse é pressionado
 def iniciar_figura_nova(event):
     global figura_nova
+
     if tipo_figura_var.get() == 'Linha':
         figura_nova = ("linha", (event.x, event.y, event.x, event.y))
+
     elif tipo_figura_var.get() == 'Rabisco':
         figura_nova = ("rabisco", [(event.x, event.y)])
+
     elif tipo_figura_var.get() == 'Retângulo':
         figura_nova = ("retangulo", (event.x, event.y, event.x, event.y))
 
     elif tipo_figura_var.get() == 'Oval':
         figura_nova = ("oval", (event.x, event.y, event.x, event.y))
+
     else:  # Círculo
         figura_nova = ("circulo", (event.x, event.y, event.x, event.y))
 
@@ -26,18 +33,21 @@ def atualizar_figura_nova(event):
 
     elif figura_nova[0] == "circulo":
         x1, y1 = figura_nova[1][0], figura_nova[1][1]
+
         lado = max(abs(event.x - x1), abs(event.y - y1))
 
         if event.x < x1:
             x2 = x1 - lado
         else:
             x2 = x1 + lado
+
         if event.y < y1:
             y2 = y1 - lado
         else:
             y2 = y1 + lado
 
         figura_nova = ("circulo", (x1, y1, x2, y2))
+
     else:
         figura_nova = (
             figura_nova[0],
@@ -63,19 +73,19 @@ def desenhar_figuras():
     for fig, values in figuras:
 
         if fig == "linha":
-            canvas.create_line(values)
+            canvas.create_line(values, fill=COR_BORDA)
 
         elif fig == "rabisco":
-            canvas.create_line(values)
+            canvas.create_line(values, fill=COR_BORDA)
 
         elif fig == "retangulo":
-            canvas.create_rectangle(values)
+            canvas.create_rectangle(values, fill=COR_PREENCHIMENTO, outline=COR_BORDA)
 
         elif fig == "oval":
-            canvas.create_oval(values)
+            canvas.create_oval(values, fill=COR_PREENCHIMENTO, outline=COR_BORDA)
 
         elif fig == "circulo":
-            canvas.create_oval(values)
+            canvas.create_oval(values, fill=COR_PREENCHIMENTO, outline=COR_BORDA)
 
 
 # Desenha figura em construção
@@ -83,19 +93,19 @@ def desenhar_figura_nova():
     fig, values = figura_nova
 
     if fig == "linha":
-        canvas.create_line(values, dash=(4, 2))
+        canvas.create_line(values, dash=(4, 2), fill=COR_BORDA)
 
     elif fig == "rabisco":
-        canvas.create_line(values, dash=(4, 2))
+        canvas.create_line(values, dash=(4, 2), fill=COR_BORDA)
 
     elif fig == "retangulo":
-        canvas.create_rectangle(values, dash=(4, 2))
+        canvas.create_rectangle(values, dash=(4, 2), outline=COR_BORDA)
 
     elif fig == "oval":
-        canvas.create_oval(values, dash=(4, 2))
+        canvas.create_oval(values, dash=(4, 2), outline=COR_BORDA)
 
     elif fig == "circulo":
-        canvas.create_oval(values, dash=(4, 2))
+        canvas.create_oval(values, dash=(4, 2), outline=COR_BORDA)
 
 
 # Verifica se figura está incompleta
