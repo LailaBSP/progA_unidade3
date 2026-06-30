@@ -1,162 +1,152 @@
 from tkinter import *
 from tkinter import ttk
+import abc
 
 COR_BORDA = 'black'
 COR_PREENCHIMENTO = 'lightblue'
 
-# Quando mouse é pressionado
+# --- Classes das Figuras (POO) ---
+
+class Figura(abc.ABC):
+    def __init__(self, x1, y1):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x1
+        self.y2 = y1
+
+    def atualizar(self, x2, y2):
+        self.x2 = x2
+        self.y2 = y2
+
+    @abc.abstractmethod
+    def desenhar(self, canvas, tracejado=False):
+        pass
+
+    def esta_incompleta(self):
+        return (self.x1, self.y1) == (self.x2, self.y2)
+
+
+class Linha(Figura):
+    def desenhar(self, canvas, tracejado=False):
+        dash = (4, 2) if tracejado else None
+        canvas.create_line(self.x1, self.y1, self.x2, self.y2, fill=COR_BORDA, dash=dash)
+
+
+class Rabisco(Figura):
+    def __init__(self, x1, y1):
+        super().__init__(x1, y1)
+        self.pontos = [(x1, y1)]
+
+    def atualizar(self, x2, y2):
+        self.pontos.append((x2, y2))
+
+    def desenhar(self, canvas, tracejado=False):
+        if len(self.pontos) > 1:
+            dash = (4, 2) if tracejado else None
+            canvas.create_line(self.pontos, fill=COR_BORDA, dash=dash)
+
+    def esta_incompleta(self):
+        return len(self.pontos) <= 1
+
+
+class Retangulo(Figura):
+    def desenhar(self, canvas, tracejado=False):
+        dash = (4, 2) if tracejado else None
+        preenchimento = None if tracejado else COR_PREENCHIMENTO
+        canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, 
+                                fill=preenchimento, outline=COR_BORDA, dash=dash)
+
+
+class Oval(Figura):
+    def desenhar(self, canvas, tracejado=False):
+        dash = (4, 2) if tracejado else None
+        preenchimento = None if tracejado else COR_PREENCHIMENTO
+        canvas.create_oval(self.x1, self.y1, self.x2, self.y2, 
+                            fill=preenchimento, outline=COR_BORDA, dash=dash)
+
+
+class Circulo(Figura):
+    def atualizar(self, x2, y2):
+        lado = max(abs(x2 - self.x1), abs(y2 - self.y1))
+        self.x2 = self.x1 - lado if x2 < self.x1 else self.x1 + lado
+        self.y2 = self.y1 - lado if y2 < self.y1 else self.y1 + lado
+
+    def desenhar(self, canvas, tracejado=False):
+        dash = (4, 2) if tracejado else None
+        preenchimento = None if tracejado else COR_PREENCHIMENTO
+        canvas.create_oval(self.x1, self.y1, self.x2, self.y2, 
+                            fill=preenchimento, outline=COR_BORDA, dash=dash)
+
+
+# --- Controle dos Eventos (Mouse) ---
+
 def iniciar_figura_nova(event):
     global figura_nova
+    tipo = tipo_figura_var.get()
 
-    if tipo_figura_var.get() == 'Linha':
-        figura_nova = ("linha", (event.x, event.y, event.x, event.y))
+    classes_figuras = {
+        'Linha': Linha,
+        'Rabisco': Rabisco,
+        'Retângulo': Retangulo,
+        'Oval': Oval,
+        'Circulo': Circulo
+    }
 
-    elif tipo_figura_var.get() == 'Rabisco':
-        figura_nova = ("rabisco", [(event.x, event.y)])
-
-    elif tipo_figura_var.get() == 'Retângulo':
-        figura_nova = ("retangulo", (event.x, event.y, event.x, event.y))
-
-    elif tipo_figura_var.get() == 'Oval':
-        figura_nova = ("oval", (event.x, event.y, event.x, event.y))
-
-    else:  # Círculo
-        figura_nova = ("circulo", (event.x, event.y, event.x, event.y))
+    classe_escolhida = classes_figuras.get(tipo, Linha)
+    figura_nova = classe_escolhida(event.x, event.y)
 
 
-# Quando mouse é movido com botão pressionado
 def atualizar_figura_nova(event):
     global figura_nova
-
-    if figura_nova[0] == "rabisco":
-        figura_nova[1].append((event.x, event.y))
-
-    elif figura_nova[0] == "circulo":
-        x1, y1 = figura_nova[1][0], figura_nova[1][1]
-
-        lado = max(abs(event.x - x1), abs(event.y - y1))
-
-        if event.x < x1:
-            x2 = x1 - lado
-        else:
-            x2 = x1 + lado
-
-        if event.y < y1:
-            y2 = y1 - lado
-        else:
-            y2 = y1 + lado
-
-        figura_nova = ("circulo", (x1, y1, x2, y2))
-
-    else:
-        figura_nova = (
-            figura_nova[0],
-            (figura_nova[1][0], figura_nova[1][1], event.x, event.y)
-        )
-
-    desenhar_figuras()
-    desenhar_figura_nova()
+    if figura_nova:
+        figura_nova.atualizar(event.x, event.y)
+        desenhar_tudo()
 
 
-# Quando mouse é solto
 def incluir_figura_nova(event):
-    if not incompleta(figura_nova):
+    global figura_nova
+    if figura_nova and not figura_nova.esta_incompleta():
         figuras.append(figura_nova)
+    figura_nova = None
+    desenhar_tudo()
 
-    desenhar_figuras()
 
-
-# Desenha todas as figuras salvas
-def desenhar_figuras():
+def desenhar_tudo():
     canvas.delete("all")
-
-    for fig, values in figuras:
-
-        if fig == "linha":
-            canvas.create_line(values, fill=COR_BORDA)
-
-        elif fig == "rabisco":
-            canvas.create_line(values, fill=COR_BORDA)
-
-        elif fig == "retangulo":
-            canvas.create_rectangle(values, fill=COR_PREENCHIMENTO, outline=COR_BORDA)
-
-        elif fig == "oval":
-            canvas.create_oval(values, fill=COR_PREENCHIMENTO, outline=COR_BORDA)
-
-        elif fig == "circulo":
-            canvas.create_oval(values, fill=COR_PREENCHIMENTO, outline=COR_BORDA)
+    for fig in figuras:
+        fig.desenhar(canvas, tracejado=False)
+    if figura_nova:
+        figura_nova.desenhar(canvas, tracejado=True)
 
 
-# Desenha figura em construção
-def desenhar_figura_nova():
-    fig, values = figura_nova
-
-    if fig == "linha":
-        canvas.create_line(values, dash=(4, 2), fill=COR_BORDA)
-
-    elif fig == "rabisco":
-        canvas.create_line(values, dash=(4, 2), fill=COR_BORDA)
-
-    elif fig == "retangulo":
-        canvas.create_rectangle(values, dash=(4, 2), outline=COR_BORDA)
-
-    elif fig == "oval":
-        canvas.create_oval(values, dash=(4, 2), outline=COR_BORDA)
-
-    elif fig == "circulo":
-        canvas.create_oval(values, dash=(4, 2), outline=COR_BORDA)
-
-
-# Verifica se figura está incompleta
-def incompleta(figura):
-    fig, values = figura
-
-    if fig == "rabisco":
-        return len(values) <= 1
-
-    return (values[0], values[1]) == (values[2], values[3])
-
-
-# ******** MAIN ******** #
+# --- Inicialização da Interface ---
 
 figuras = []
 figura_nova = None
 
 root = Tk()
-root.title('Exemplo de aplicação')
+root.title('Exemplo de aplicação (POO)')
 
 frame = Frame(root)
-
 paddings = {'padx': 5, 'pady': 5}
 
-# Label
+# Texto e Menu de opções
 label = ttk.Label(frame, text='Escolha o que vai desenhar:')
 label.grid(column=0, row=0, sticky=W, **paddings)
 
-# Menu de opções
 tipo_figura_var = StringVar(root)
-
 option_menu = ttk.OptionMenu(
-    frame,
-    tipo_figura_var,
-    'Linha',
-    'Linha',
-    'Rabisco',
-    'Retângulo',
-    'Oval',
-    'Circulo'
+    frame, tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo'
 )
-
 option_menu.grid(column=1, row=0, sticky=W, **paddings)
 
-# Área de desenho
+# Área do desenho
 canvas = Canvas(frame, bg='white', width=600, height=600)
 canvas.grid(column=0, row=1, columnspan=2, sticky=W, **paddings)
 
 frame.pack()
 
-# Eventos
+# Cliques do mouse
 canvas.bind('<ButtonPress-1>', iniciar_figura_nova)
 canvas.bind('<B1-Motion>', atualizar_figura_nova)
 canvas.bind('<ButtonRelease-1>', incluir_figura_nova)
