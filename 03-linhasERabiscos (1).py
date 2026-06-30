@@ -125,7 +125,8 @@ figuras = []
 figura_nova = None
 
 root = Tk()
-root.title('Exemplo de aplicação (POO)')
+# Título atualizado
+root.title('Projeto UFS - Programação A - IA - 2026')
 
 frame = Frame(root)
 paddings = {'padx': 5, 'pady': 5}
@@ -140,8 +141,8 @@ option_menu = ttk.OptionMenu(
 )
 option_menu.grid(column=1, row=0, sticky=W, **paddings)
 
-# Área do desenho
-canvas = Canvas(frame, bg='white', width=600, height=600)
+# Área do desenho modificada para rosa (pink)
+canvas = Canvas(frame, bg='pink', width=600, height=600)
 canvas.grid(column=0, row=1, columnspan=2, sticky=W, **paddings)
 
 frame.pack()
