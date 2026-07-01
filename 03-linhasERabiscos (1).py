@@ -78,6 +78,41 @@ class Circulo(Figura):
                             fill=preenchimento, outline=COR_BORDA, dash=dash)
 
 
+class Poligono(Figura):
+    def __init__(self, x1, y1):
+        super().__init__(x1, y1)
+        self.pontos = [(x1, y1)]
+        self.x_temp=x1
+        self.y_temp=y1
+
+    def atualizar(self, x2, y2):
+        self.x_temp=x2
+        self.y_temp=y2
+
+    def adicionar_ponto(self,x,y):
+        self.pontos.append((x,y))
+
+    def desenhar(self, canvas, tracejado=False):
+        dash=(4,2) if tracejado else None
+        pontos=self.pontos.copy()
+
+        if tracejado:
+            pontos.append((self.x_temp, self.y_temp))
+
+        if len(pontos)>1:
+            lista=[]
+            for p in pontos:
+                lista.extend(p)
+
+            if tracejado:
+                canvas.create_line(lista, fill=COR_BORDA, dash=dash)
+
+            else:
+                canvas.create_polygon(lista, outline=COR_BORDA, fill=COR_PREENCHIMENTO)
+
+    def esta_incompleta(self):
+        return len(self.pontos)<3
+
 # --- Controle dos Eventos (Mouse) ---
 
 def iniciar_figura_nova(event):
@@ -89,7 +124,8 @@ def iniciar_figura_nova(event):
         'Rabisco': Rabisco,
         'Retângulo': Retangulo,
         'Oval': Oval,
-        'Circulo': Circulo
+        'Circulo': Circulo,
+        'Polígono' : Poligono
     }
 
     classe_escolhida = classes_figuras.get(tipo, Linha)
@@ -118,6 +154,18 @@ def desenhar_tudo():
     if figura_nova:
         figura_nova.desenhar(canvas, tracejado=True)
 
+def iniciar_figura_nova(event):
+    global figura_nova
+    tipo=tipo_figura_var.get()
+    
+    if tipo=='Polígono':
+        if figura_nova is None:
+            figura_nova=Poligono(event.x,event.y)
+    else:
+        figura_nova.adicionar_ponto(event.x,event.y)
+
+    desenhar_tudo()
+    return
 
 # --- Inicialização da Interface ---
 
