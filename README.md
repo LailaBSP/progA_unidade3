@@ -1,7 +1,5 @@
 # progA_unidade3
 
-# progA_unidade3
-
 # Projeto da Terceira Unidade
 
 Neste projeto será elaborado um programa para construir desenhos no estilo das apps **Google Drawings** e **LibreOffice Draws**.
