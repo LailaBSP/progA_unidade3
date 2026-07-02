@@ -8,7 +8,7 @@ COR_PREENCHIMENTO = 'lightblue'
 # --- Classes das Figuras (POO) ---
 
 class Figura(abc.ABC):
-    def __init__(self, x1, y1):
+    def _init_(self, x1, y1):
         self.x1 = x1
         self.y1 = y1
         self.x2 = x1
@@ -33,8 +33,8 @@ class Linha(Figura):
 
 
 class Rabisco(Figura):
-    def __init__(self, x1, y1):
-        super().__init__(x1, y1)
+    def _init_(self, x1, y1):
+        super()._init_(x1, y1)
         self.pontos = [(x1, y1)]
 
     def atualizar(self, x2, y2):
@@ -79,43 +79,42 @@ class Circulo(Figura):
 
 
 class Poligono(Figura):
-    def __init__(self, x1, y1):
-        super().__init__(x1, y1)
+    def _init_(self, x1, y1):
+        super()._init_(x1, y1)
         self.pontos = [(x1, y1)]
-        self.x_temp=x1
-        self.y_temp=y1
+        self.x_temp = x1
+        self.y_temp = y1
 
     def atualizar(self, x2, y2):
-        self.x_temp=x2
-        self.y_temp=y2
+        self.x_temp = x2
+        self.y_temp = y2
 
-    def adicionar_ponto(self,x,y):
-        self.pontos.append((x,y))
+    def adicionar_ponto(self, x, y):
+        self.pontos.append((x, y))
 
     def desenhar(self, canvas, tracejado=False):
-        dash=(4,2) if tracejado else None
-        pontos=self.pontos.copy()
+        dash = (4, 2) if tracejado else None
+        pontos = self.pontos.copy()
 
         if tracejado:
             pontos.append((self.x_temp, self.y_temp))
 
-        if len(pontos)>1:
-            lista=[]
+        if len(pontos) > 1:
+            lista = []
             for p in pontos:
                 lista.extend(p)
 
             if tracejado:
                 canvas.create_line(lista, fill=COR_BORDA, dash=dash)
-
             else:
                 canvas.create_polygon(lista, outline=COR_BORDA, fill=COR_PREENCHIMENTO)
 
     def esta_incompleta(self):
-        return len(self.pontos)<3
+        return len(self.pontos) < 3
 
 # --- Controle dos Eventos (Mouse) ---
 
-def iniciar_figura_nova(event):
+def gerenciar_clique(event):
     global figura_nova
     tipo = tipo_figura_var.get()
 
@@ -125,11 +124,19 @@ def iniciar_figura_nova(event):
         'Retângulo': Retangulo,
         'Oval': Oval,
         'Circulo': Circulo,
-        'Polígono' : Poligono
+        'Polígono': Poligono
     }
 
-    classe_escolhida = classes_figuras.get(tipo, Linha)
-    figura_nova = classe_escolhida(event.x, event.y)
+    if tipo == 'Polígono':
+        if figura_nova is None:
+            figura_nova = Poligono(event.x, event.y)
+        else:
+            figura_nova.adicionar_ponto(event.x, event.y)
+    else:
+        classe_escolhida = classes_figuras.get(tipo, Linha)
+        figura_nova = classe_escolhida(event.x, event.y)
+    
+    desenhar_tudo()
 
 
 def atualizar_figura_nova(event):
@@ -141,10 +148,26 @@ def atualizar_figura_nova(event):
 
 def incluir_figura_nova(event):
     global figura_nova
+    tipo = tipo_figura_var.get()
+    
+    if tipo == 'Polígono':
+        return
+
     if figura_nova and not figura_nova.esta_incompleta():
         figuras.append(figura_nova)
     figura_nova = None
     desenhar_tudo()
+
+
+def finalizar_poligono(event):
+    global figura_nova
+    tipo = tipo_figura_var.get()
+    
+    if tipo == 'Polígono' and figura_nova:
+        if not figura_nova.esta_incompleta():
+            figuras.append(figura_nova)
+        figura_nova = None
+        desenhar_tudo()
 
 
 def desenhar_tudo():
@@ -154,18 +177,6 @@ def desenhar_tudo():
     if figura_nova:
         figura_nova.desenhar(canvas, tracejado=True)
 
-def iniciar_figura_nova(event):
-    global figura_nova
-    tipo=tipo_figura_var.get()
-    
-    if tipo=='Polígono':
-        if figura_nova is None:
-            figura_nova=Poligono(event.x,event.y)
-    else:
-        figura_nova.adicionar_ponto(event.x,event.y)
-
-    desenhar_tudo()
-    return
 
 # --- Inicialização da Interface ---
 
@@ -173,31 +184,29 @@ figuras = []
 figura_nova = None
 
 root = Tk()
-# Título atualizado
 root.title('Projeto UFS - Programação A - IA - 2026')
 
 frame = Frame(root)
 paddings = {'padx': 5, 'pady': 5}
 
-# Texto e Menu de opções
 label = ttk.Label(frame, text='Escolha o que vai desenhar:')
 label.grid(column=0, row=0, sticky=W, **paddings)
 
 tipo_figura_var = StringVar(root)
 option_menu = ttk.OptionMenu(
-    frame, tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo'
+    frame, tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo', 'Polígono'
 )
 option_menu.grid(column=1, row=0, sticky=W, **paddings)
 
-# Área do desenho modificada para rosa (pink)
 canvas = Canvas(frame, bg='pink', width=600, height=600)
 canvas.grid(column=0, row=1, columnspan=2, sticky=W, **paddings)
 
 frame.pack()
 
-# Cliques do mouse
-canvas.bind('<ButtonPress-1>', iniciar_figura_nova)
+# Cliques do mouse 
+canvas.bind('<ButtonPress-1>', gerenciar_clique)
 canvas.bind('<B1-Motion>', atualizar_figura_nova)
 canvas.bind('<ButtonRelease-1>', incluir_figura_nova)
+canvas.bind('<Double-Button-1>', finalizar_poligono)  
 
 root.mainloop()
