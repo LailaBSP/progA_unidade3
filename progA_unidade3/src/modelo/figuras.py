@@ -1,5 +1,3 @@
-#Classe Figura e subclasses que precisava
-
 from tkinter import *
 import abc
 
@@ -27,7 +25,6 @@ class Figura(abc.ABC):
 
 
 class Linha(Figura):
-
     def desenhar(self, canvas, tracejado=False):
         dash = (4, 2) if tracejado else None
 
@@ -42,7 +39,6 @@ class Linha(Figura):
 
 
 class Rabisco(Figura):
-
     def __init__(self, x1, y1):
         super().__init__(x1, y1)
         self.pontos = [(x1, y1)]
@@ -60,9 +56,7 @@ class Rabisco(Figura):
 
 
 class Retangulo(Figura):
-
     def desenhar(self, canvas, tracejado=False):
-
         dash = (4, 2) if tracejado else None
         preenchimento = None if tracejado else COR_PREENCHIMENTO
 
@@ -78,9 +72,7 @@ class Retangulo(Figura):
 
 
 class Oval(Figura):
-
     def desenhar(self, canvas, tracejado=False):
-
         dash = (4, 2) if tracejado else None
         preenchimento = None if tracejado else COR_PREENCHIMENTO
 
@@ -96,16 +88,13 @@ class Oval(Figura):
 
 
 class Circulo(Figura):
-
     def atualizar(self, x2, y2):
-
         lado = max(abs(x2 - self.x1), abs(y2 - self.y1))
 
         self.x2 = self.x1 - lado if x2 < self.x1 else self.x1 + lado
         self.y2 = self.y1 - lado if y2 < self.y1 else self.y1 + lado
 
     def desenhar(self, canvas, tracejado=False):
-
         dash = (4, 2) if tracejado else None
         preenchimento = None if tracejado else COR_PREENCHIMENTO
 
@@ -121,7 +110,6 @@ class Circulo(Figura):
 
 
 class Poligono(Figura):
-
     def __init__(self, x1, y1):
         super().__init__(x1, y1)
         self.pontos = [(x1, y1)]
@@ -136,9 +124,7 @@ class Poligono(Figura):
         self.pontos.append((x, y))
 
     def desenhar(self, canvas, tracejado=False):
-
         dash = (4, 2) if tracejado else None
-
         pontos = self.pontos.copy()
 
         if tracejado:
