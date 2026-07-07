@@ -3,7 +3,7 @@
 from tkinter import *
 from tkinter import ttk
 
-from figuras import (
+from progA_unidade3.src.modelo.figuras import (
     Linha,
     Rabisco,
     Retangulo,
