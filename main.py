@@ -1,4 +1,4 @@
-# Interface e eventos do mouse
+#Interface e eventos do mouse
 
 from tkinter import *
 from tkinter import ttk

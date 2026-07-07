@@ -1,4 +1,4 @@
-# Classe Figura e subclasses
+#Classe Figura e subclasses que precisava
 
 from tkinter import *
 import abc
@@ -166,3 +166,5 @@ class Poligono(Figura):
 
     def esta_incompleta(self):
         return len(self.pontos) < 3
+    
+    
