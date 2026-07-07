@@ -1,5 +1,10 @@
+# Classe Figura e subclasses
+
+from tkinter import *
 import abc
-from constantes import COR_BORDA, COR_PREENCHIMENTO
+
+COR_BORDA = 'black'
+COR_PREENCHIMENTO = 'lightblue'
 
 
 class Figura(abc.ABC):
@@ -22,8 +27,10 @@ class Figura(abc.ABC):
 
 
 class Linha(Figura):
+
     def desenhar(self, canvas, tracejado=False):
         dash = (4, 2) if tracejado else None
+
         canvas.create_line(
             self.x1,
             self.y1,
@@ -35,6 +42,7 @@ class Linha(Figura):
 
 
 class Rabisco(Figura):
+
     def __init__(self, x1, y1):
         super().__init__(x1, y1)
         self.pontos = [(x1, y1)]
@@ -45,18 +53,16 @@ class Rabisco(Figura):
     def desenhar(self, canvas, tracejado=False):
         if len(self.pontos) > 1:
             dash = (4, 2) if tracejado else None
-            canvas.create_line(
-                self.pontos,
-                fill=COR_BORDA,
-                dash=dash
-            )
+            canvas.create_line(self.pontos, fill=COR_BORDA, dash=dash)
 
     def esta_incompleta(self):
         return len(self.pontos) <= 1
 
 
 class Retangulo(Figura):
+
     def desenhar(self, canvas, tracejado=False):
+
         dash = (4, 2) if tracejado else None
         preenchimento = None if tracejado else COR_PREENCHIMENTO
 
@@ -72,7 +78,9 @@ class Retangulo(Figura):
 
 
 class Oval(Figura):
+
     def desenhar(self, canvas, tracejado=False):
+
         dash = (4, 2) if tracejado else None
         preenchimento = None if tracejado else COR_PREENCHIMENTO
 
@@ -88,13 +96,16 @@ class Oval(Figura):
 
 
 class Circulo(Figura):
+
     def atualizar(self, x2, y2):
+
         lado = max(abs(x2 - self.x1), abs(y2 - self.y1))
 
         self.x2 = self.x1 - lado if x2 < self.x1 else self.x1 + lado
         self.y2 = self.y1 - lado if y2 < self.y1 else self.y1 + lado
 
     def desenhar(self, canvas, tracejado=False):
+
         dash = (4, 2) if tracejado else None
         preenchimento = None if tracejado else COR_PREENCHIMENTO
 
@@ -110,6 +121,7 @@ class Circulo(Figura):
 
 
 class Poligono(Figura):
+
     def __init__(self, x1, y1):
         super().__init__(x1, y1)
         self.pontos = [(x1, y1)]
@@ -124,6 +136,7 @@ class Poligono(Figura):
         self.pontos.append((x, y))
 
     def desenhar(self, canvas, tracejado=False):
+
         dash = (4, 2) if tracejado else None
 
         pontos = self.pontos.copy()
