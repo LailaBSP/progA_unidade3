@@ -5,7 +5,7 @@ figuras = []
 figura_nova = None
 
 #pq as funcoes usam canvas tipo_figura_var
-def orfanizacaoDaVariavel(canvas_recebido, tipo_recebido):
+def organizacaoDaVariavel(canvas_recebido, tipo_recebido):
     global canvas, tipo_figura_var
     canvas = canvas_recebido
     tipo_figura_var = tipo_recebido
