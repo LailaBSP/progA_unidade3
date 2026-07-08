@@ -2,33 +2,41 @@
 
 from tkinter import *
 from tkinter import ttk
-from controlador.controlador import (organizacaoDaVariavel,gerenciar_clique,atualizar_figura_nova,incluir_figura_nova,finalizar_poligono)
 
-def iniciar():
-    root = Tk() #criar a janela
-    root.title("Projeto UFSProgramação A - IA - 2026")
+class JanelaPrincipal:
+    def __init__(self, modelo_desenho):
+        self.modelo = modelo_desenho
+        self.controlador = None 
+        
+        self.root = Tk()
+        self.root.title("Projeto UFS - Programação A")
+        
+        self.frame = Frame(self.root)
+        self.frame.pack()
+        
+        self.tipo_figura_var = StringVar(self.root, value='Linha')
+        self.option_menu = ttk.OptionMenu(self.frame, self.tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo', 'Polígono')
+        self.option_menu.grid(column=1, row=0, sticky=W, padx=5, pady=5)
 
-    frame = Frame(root)
-    paddings = {'padx': 5, 'pady': 5}
-    frame.pack()
+        self.canvas = Canvas(self.frame, bg='pink', width=600, height=600)
+        self.canvas.grid(column=0, row=1, columnspan=2, sticky=W, padx=5, pady=5)
 
-    label = ttk.Label(frame, text='Escolha o que vai desenhar:')
-    label.grid(column=0, row=0, sticky=W, **paddings)
+        # Associa os eventos passando as referências para o controlador
+        self.canvas.bind('<ButtonPress-1>', lambda e: self.controlador.gerenciar_clique(e, self.tipo_figura_var.get()))
+        self.canvas.bind('<B1-Motion>', lambda e: self.controlador.atualizar_movimento(e))
+        self.canvas.bind('<ButtonRelease-1>', lambda e: self.controlador.soltar_clique(e, self.tipo_figura_var.get()))
+        self.canvas.bind('<Double-Button-1>', lambda e: self.controlador.duplo_clique(e, self.tipo_figura_var.get()))
 
-    tipo_figura_var = StringVar(root)
+    def associar_controlador(self, controlador):
+        self.controlador = controlador
 
-    option_menu = ttk.OptionMenu(frame, tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo', 'Polígono')
-    option_menu.grid(column=1, row=0, sticky=W, **paddings)
+    def atualizar_tela(self):
+        self.canvas.delete("all")
+        # Lê as figuras diretamente do modelo
+        for fig in self.modelo.obter_figuras():
+            fig.desenhar(self.canvas, tracejado=False)
+        if self.modelo.figura_nova:
+            self.modelo.figura_nova.desenhar(self.canvas, tracejado=True)
 
-    canvas = Canvas(frame, bg='pink', width=600, height=600)
-    canvas.grid(column=0, row=1, columnspan=2, sticky=W, **paddings)
-
-    organizacaoDaVariavel(canvas, tipo_figura_var)
-
-    # Cliques do mouse configurados 
-    canvas.bind('<ButtonPress-1>', gerenciar_clique)
-    canvas.bind('<B1-Motion>', atualizar_figura_nova)
-    canvas.bind('<ButtonRelease-1>', incluir_figura_nova)
-    canvas.bind('<Double-Button-1>', finalizar_poligono)  # Clique duplo fecha o Polígono
-
-    root.mainloop()
+    def iniciar(self):
+        self.root.mainloop()
