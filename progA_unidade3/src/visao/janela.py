@@ -2,7 +2,7 @@
 
 from tkinter import *
 from tkinter import ttk
-from controlador.controlador import (orfanizacaoDaVariavel,gerenciar_clique,atualizar_figura_nova,incluir_figura_nova,finalizar_poligono)
+from controlador.controlador import (organizacaoDaVariavel,gerenciar_clique,atualizar_figura_nova,incluir_figura_nova,finalizar_poligono)
 
 def iniciar():
     root = Tk() #criar a janela
@@ -23,7 +23,7 @@ def iniciar():
     canvas = Canvas(frame, bg='pink', width=600, height=600)
     canvas.grid(column=0, row=1, columnspan=2, sticky=W, **paddings)
 
-    orfanizacaoDaVariavel(canvas, tipo_figura_var)
+    organizacaoDaVariavel(canvas, tipo_figura_var)
 
     # Cliques do mouse configurados 
     canvas.bind('<ButtonPress-1>', gerenciar_clique)
