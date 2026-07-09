@@ -1,3 +1,4 @@
+from tkinter import Canvas
 from modelo.figuras import Linha, Rabisco, Retangulo, Oval, Circulo, Poligono
 
 class ControladorDesenho:
@@ -42,3 +43,11 @@ class ControladorDesenho:
                 self.modelo.adicionar_figura(self.modelo.figura_nova)
             self.modelo.figura_nova = None
             self.visao.atualizar_tela()
+
+    def salvar_figuras(nome_arquivo):
+        self.modelo.salvar_figuras(nome_arquivo)
+
+    def abrir_figuras(nome_arquivo):
+        self.modelo.abrir_figuras(nome_arquivo)
+        self.visao.atualizar_tela()
+

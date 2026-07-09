@@ -2,6 +2,7 @@
 
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
 
 class JanelaPrincipal:
     def __init__(self, modelo_desenho):
@@ -17,6 +18,18 @@ class JanelaPrincipal:
         self.tipo_figura_var = StringVar(self.root, value='Linha')
         self.option_menu = ttk.OptionMenu(self.frame, self.tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo', 'Polígono')
         self.option_menu.grid(column=1, row=0, sticky=W, padx=5, pady=5)
+
+        botao_salvar = ttk.Button(
+            self.frame,
+            text="Salvar",
+            command=self.salvar)
+        botao_salvar.grid(column=2, row=0, padx=5, pady=5)
+        
+        botao_abrir = ttk.Button(
+            self.frame,
+            text="Abrir",
+            command=self.abrir)
+        botao_abrir.grid(column=3, row=0, padx=5, pady=5)
 
         self.canvas = Canvas(self.frame, bg='pink', width=600, height=600)
         self.canvas.grid(column=0, row=1, columnspan=2, sticky=W, padx=5, pady=5)
@@ -40,3 +53,19 @@ class JanelaPrincipal:
 
     def iniciar(self):
         self.root.mainloop()
+
+    def salvar(self):
+        nome_arquivo = filedialog.asksaveasfilename( #abre janela pra escolher onde salvar
+            defaultextension=".txt", 
+            filetypes=[("Arquivo de texto", "*.txt")]
+        )
+        if nome_arquivo:
+            self.controlador.salvar_desenho(nome_arquivo)
+
+
+    def abrir(self):
+        nome_arquivo = filedialog.askopenfilename( #abre janela pra escolher arquivo
+            filetypes=[("Arquivo de texto", "*.txt")]
+        )
+        if nome_arquivo:
+            self.controlador.abrir_desenho(nome_arquivo)
