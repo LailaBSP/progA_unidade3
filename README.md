@@ -1,7 +1,7 @@
 Projeto UFS - Programação A
 
 - Laila Beatriz de Souza Pereira
-- Lavínia Almeida Cerqueira Campos
+- Lavínia Almeida Cerqueira dos Santos
 - Carolina Aragão Céu Melo
 
 Este projeto consiste no desenvolvimento de um programa para criação de desenhos, inspirado em aplicativos como Google Drawings e LibreOffice Draw. A aplicação foi desenvolvida em Python utilizando a biblioteca Tkinter para a construção da interface gráfica (GUI). O sistema permite ao usuário desenhar diferentes figuras geométricas, como linhas, rabiscos, retângulos, ovais, círculos e polígonos, por meio da interação com o mouse.
