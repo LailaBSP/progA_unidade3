@@ -1,31 +1,26 @@
 Projeto UFS - Programação A
 
+## Integrantes
 - Laila Beatriz de Souza Pereira
 - Lavínia Almeida Cerqueira dos Santos
 - Carolina Aragão Céu Melo
 
-Este projeto consiste no desenvolvimento de um programa para criação de desenhos, inspirado em aplicativos como Google Drawings e LibreOffice Draw. A aplicação foi desenvolvida em Python utilizando a biblioteca Tkinter para a construção da interface gráfica (GUI). O sistema permite ao usuário desenhar diferentes figuras geométricas, como linhas, rabiscos, retângulos, ovais, círculos e polígonos, por meio da interação com o mouse.
+## Descrição do sistema
+Este projeto consiste no desenvolvimento de um programa para criação de desenhos, inspirado em aplicativos como Google Drawings e LibreOffice Draw. A aplicação foi desenvolvida em Python utilizando a biblioteca Tkinter para a construção da interface gráfica (GUI). O sistema permite ao usuário desenhar diferentes figuras geométricas, como linhas, rabiscos, retângulos, ovais, círculos e polígonos, por meio da interação com o mouse. O sistema também permite salvar o desenho em um arquivo de texto e abrir o mesmo desenho depois.
 
-
-O arquivo README deverá informar:
-• nome da equipe; *OK*
-
-• integrantes; *OK*
-
-• breve descrição do sistema documentado; *OK*
-
-• quantidade de classes documentadas;
-*(PRECISAM SER DOCUMENTADAS)*
-Figura (classe abstrata)
-Linha
-Rabisco
-Retangulo
-Oval
-Circulo
-Poligono
+## Quantidade de classes documentadas
+1. Figura
+2. Linha
+3. Rabisco
+4. Retangulo
+5. Oval
+6. Circulo
+7. Poligono
+8. Desenho
+9. ControladorDesenho
+10. JanelaPrincipal
 
 • quantidade de métodos documentados;
-*(PRECISAM SER DOCUMENTADOSS)*
 Métodos das classes (18)
 Classe Figura (4)
 __init__()
@@ -69,4 +64,10 @@ Total do projeto
 18 métodos (classes)
 7 funções (controlador.py + janela.py)
 
-• instruções para visualizar a documentação
+## Como visualizar a documentação
+A documentação HTML gerada pelo Pydoc está na pasta:
+
+progA_unidade3/docs
+
+Abra o arquivo `index.html` com o navegador. Nessa página existem links
+para a documentação de todos os módulos do sistema
