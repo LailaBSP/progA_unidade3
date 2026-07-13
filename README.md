@@ -20,7 +20,7 @@ Este projeto consiste no desenvolvimento de um programa para criação de desenh
 9. ControladorDesenho
 10. JanelaPrincipal
 
-• quantidade de métodos documentados;
+## Quantidade de métodos documentados
 Métodos das classes (18)
 Classe Figura (4)
 __init__()
