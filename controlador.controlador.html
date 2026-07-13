@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module controlador.controlador</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="controlador.html" class="white">controlador</a>.controlador</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cusu%C3%A1rio%5Cproga_unidade3%5Cproga_unidade3%5Csrc%5Ccontrolador%5Ccontrolador.py">c:\users\usuário\proga_unidade3\proga_unidade3\src\controlador\controlador.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="controlador.controlador.html#ControladorDesenho">ControladorDesenho</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="ControladorDesenho">class <strong>ControladorDesenho</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#ControladorDesenho">ControladorDesenho</a>(modelo_desenho,&nbsp;visao_janela)<br>
+&nbsp;<br>
+Essa&nbsp;é&nbsp;o&nbsp;Controlador&nbsp;do&nbsp;padrão&nbsp;MVC.&nbsp;Fica&nbsp;entre&nbsp;a&nbsp;tela&nbsp;(visão)&nbsp;e<br>
+o&nbsp;modelo,&nbsp;tratando&nbsp;os&nbsp;eventos&nbsp;de&nbsp;mouse&nbsp;(clique,&nbsp;arrastar,&nbsp;soltar,<br>
+duplo&nbsp;clique)&nbsp;e&nbsp;transformando&nbsp;isso&nbsp;em&nbsp;ações&nbsp;sobre&nbsp;as&nbsp;figuras&nbsp;do<br>
+modelo.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modelo:&nbsp;o&nbsp;Desenho&nbsp;que&nbsp;guarda&nbsp;as&nbsp;figuras&nbsp;do&nbsp;sistema.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;visao:&nbsp;a&nbsp;JanelaPrincipal&nbsp;que&nbsp;mostra&nbsp;a&nbsp;tela&nbsp;pro&nbsp;usuário.<br>
+&nbsp;<br>
+@version&nbsp;1.0<br>
+@see&nbsp;modelo.desenho.Desenho<br>
+@see&nbsp;visao.janela.JanelaPrincipal<br>
+@since&nbsp;1.0<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="ControladorDesenho-__init__"><strong>__init__</strong></a>(self, modelo_desenho, visao_janela)</dt><dd><span class="code">Guarda&nbsp;as&nbsp;referências&nbsp;do&nbsp;modelo&nbsp;e&nbsp;da&nbsp;visão&nbsp;que&nbsp;o&nbsp;controlador<br>
+vai&nbsp;usar.<br>
+&nbsp;<br>
+@param&nbsp;modelo_desenho&nbsp;o&nbsp;Desenho&nbsp;usado&nbsp;no&nbsp;programa.<br>
+@param&nbsp;visao_janela&nbsp;a&nbsp;JanelaPrincipal&nbsp;usada&nbsp;no&nbsp;programa.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-abrir_figuras"><strong>abrir_figuras</strong></a>(nome_arquivo)</dt><dd><span class="code">Chama&nbsp;o&nbsp;modelo&nbsp;pra&nbsp;abrir&nbsp;um&nbsp;arquivo&nbsp;salvo&nbsp;antes,&nbsp;e&nbsp;depois<br>
+atualiza&nbsp;a&nbsp;tela&nbsp;pra&nbsp;mostrar&nbsp;as&nbsp;figuras&nbsp;carregadas.<br>
+&nbsp;<br>
+@param&nbsp;nome_arquivo&nbsp;caminho&nbsp;ou&nbsp;nome&nbsp;do&nbsp;arquivo&nbsp;a&nbsp;ser&nbsp;lido.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-atualizar_movimento"><strong>atualizar_movimento</strong></a>(self, event)</dt><dd><span class="code">Chamado&nbsp;toda&nbsp;vez&nbsp;que&nbsp;o&nbsp;mouse&nbsp;se&nbsp;move&nbsp;com&nbsp;o&nbsp;botão&nbsp;apertado.<br>
+Vai&nbsp;atualizando&nbsp;a&nbsp;figura&nbsp;que&nbsp;tá&nbsp;sendo&nbsp;criada&nbsp;no&nbsp;momento.<br>
+&nbsp;<br>
+@param&nbsp;event&nbsp;evento&nbsp;do&nbsp;Tkinter&nbsp;com&nbsp;a&nbsp;posição&nbsp;atual&nbsp;do&nbsp;mouse.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-duplo_clique"><strong>duplo_clique</strong></a>(self, event, tipo_figura)</dt><dd><span class="code">Só&nbsp;faz&nbsp;alguma&nbsp;coisa&nbsp;quando&nbsp;o&nbsp;tipo&nbsp;é&nbsp;'Polígono'&nbsp;—&nbsp;é&nbsp;o&nbsp;duplo<br>
+clique&nbsp;que&nbsp;fecha&nbsp;o&nbsp;polígono&nbsp;em&nbsp;construção&nbsp;e&nbsp;manda&nbsp;ele&nbsp;pro<br>
+modelo.<br>
+&nbsp;<br>
+@param&nbsp;event&nbsp;evento&nbsp;do&nbsp;Tkinter&nbsp;associado&nbsp;ao&nbsp;duplo&nbsp;clique.<br>
+@param&nbsp;tipo_figura&nbsp;tipo&nbsp;da&nbsp;figura&nbsp;sendo&nbsp;criada&nbsp;(só&nbsp;funciona&nbsp;quando&nbsp;é&nbsp;'Polígono').</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-gerenciar_clique"><strong>gerenciar_clique</strong></a>(self, event, tipo_figura)</dt><dd><span class="code">Trata&nbsp;o&nbsp;primeiro&nbsp;clique&nbsp;do&nbsp;mouse,&nbsp;criando&nbsp;uma&nbsp;figura&nbsp;nova<br>
+do&nbsp;tipo&nbsp;escolhido&nbsp;no&nbsp;menu.<br>
+&nbsp;<br>
+O&nbsp;Polígono&nbsp;é&nbsp;tratado&nbsp;diferente:&nbsp;cada&nbsp;clique&nbsp;novo&nbsp;adiciona&nbsp;um<br>
+vértice&nbsp;na&nbsp;figura,&nbsp;em&nbsp;vez&nbsp;de&nbsp;criar&nbsp;uma&nbsp;figura&nbsp;do&nbsp;zero&nbsp;a&nbsp;cada<br>
+clique&nbsp;(só&nbsp;cria&nbsp;uma&nbsp;nova&nbsp;no&nbsp;primeiro&nbsp;clique,&nbsp;quando&nbsp;ainda&nbsp;não<br>
+tem&nbsp;nenhum&nbsp;polígono&nbsp;em&nbsp;construção).<br>
+&nbsp;<br>
+@param&nbsp;event&nbsp;evento&nbsp;do&nbsp;Tkinter&nbsp;com&nbsp;as&nbsp;coordenadas&nbsp;do&nbsp;clique&nbsp;(event.x,&nbsp;event.y).<br>
+@param&nbsp;tipo_figura&nbsp;o&nbsp;tipo&nbsp;escolhido&nbsp;no&nbsp;menu&nbsp;('Linha',&nbsp;'Rabisco',&nbsp;'Retângulo',&nbsp;'Oval',&nbsp;'Circulo'&nbsp;ou&nbsp;'Polígono').</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-salvar_figuras"><strong>salvar_figuras</strong></a>(nome_arquivo)</dt><dd><span class="code">Chama&nbsp;o&nbsp;modelo&nbsp;pra&nbsp;salvar&nbsp;as&nbsp;figuras&nbsp;num&nbsp;arquivo.<br>
+&nbsp;<br>
+@param&nbsp;nome_arquivo&nbsp;caminho&nbsp;ou&nbsp;nome&nbsp;do&nbsp;arquivo&nbsp;onde&nbsp;vai&nbsp;salvar.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-soltar_clique"><strong>soltar_clique</strong></a>(self, event, tipo_figura)</dt><dd><span class="code">Chamado&nbsp;quando&nbsp;o&nbsp;usuário&nbsp;solta&nbsp;o&nbsp;botão&nbsp;do&nbsp;mouse&nbsp;—&nbsp;é&nbsp;aqui<br>
+que&nbsp;a&nbsp;figura&nbsp;é&nbsp;finalizada&nbsp;e&nbsp;vai&nbsp;pro&nbsp;modelo.&nbsp;Exceção&nbsp;é&nbsp;o<br>
+Polígono,&nbsp;que&nbsp;só&nbsp;termina&nbsp;no&nbsp;duplo&nbsp;clique,&nbsp;então&nbsp;esse&nbsp;método<br>
+não&nbsp;faz&nbsp;nada&nbsp;nesse&nbsp;caso.<br>
+&nbsp;<br>
+@param&nbsp;event&nbsp;evento&nbsp;do&nbsp;Tkinter&nbsp;associado&nbsp;ao&nbsp;soltar&nbsp;do&nbsp;clique.<br>
+@param&nbsp;tipo_figura&nbsp;tipo&nbsp;da&nbsp;figura&nbsp;que&nbsp;tava&nbsp;sendo&nbsp;criada.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
