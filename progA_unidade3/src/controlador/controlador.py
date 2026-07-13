@@ -35,6 +35,7 @@ class ControladorDesenho:
         clique (só cria uma nova no primeiro clique, quando ainda não
         tem nenhum polígono em construção).
 
+        @author Laila Beatriz
         @param event evento do Tkinter com as coordenadas do clique (event.x, event.y).
         @param tipo_figura o tipo escolhido no menu ('Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo' ou 'Polígono').
         """
@@ -70,6 +71,7 @@ class ControladorDesenho:
         Polígono, que só termina no duplo clique, então esse método
         não faz nada nesse caso.
 
+        @author Laila Beatriz
         @param event evento do Tkinter associado ao soltar do clique.
         @param tipo_figura tipo da figura que tava sendo criada.
         """
@@ -86,6 +88,7 @@ class ControladorDesenho:
         clique que fecha o polígono em construção e manda ele pro
         modelo.
 
+        @author Laila Beatriz
         @param event evento do Tkinter associado ao duplo clique.
         @param tipo_figura tipo da figura sendo criada (só funciona quando é 'Polígono').
         """
@@ -98,6 +101,7 @@ class ControladorDesenho:
     def salvar_figuras(nome_arquivo):
         """Chama o modelo pra salvar as figuras num arquivo.
 
+        @author Laila Beatriz
         @param nome_arquivo caminho ou nome do arquivo onde vai salvar.
         """
         self.modelo.salvar_figuras(nome_arquivo)
@@ -106,6 +110,7 @@ class ControladorDesenho:
         """Chama o modelo pra abrir um arquivo salvo antes, e depois
         atualiza a tela pra mostrar as figuras carregadas.
 
+        @author Laila Beatriz
         @param nome_arquivo caminho ou nome do arquivo a ser lido.
         """
         self.modelo.abrir_figuras(nome_arquivo)
