@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto UFS - Programação A</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .janela-principal {
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        .controles {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        select, button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        canvas {
+            background-color: pink;
+            border: 1px solid #aaa;
+            display: block;
+        }
+    </style>
+</head>
+<body>
 
+    <!-- Visão do padrão MVC (JanelaPrincipal) -->
+    <div class="janela-principal">
+        <div class="controles">
+            <!-- OptionMenu -->
+            <select id="tipoFigura">
+                <option value="Linha">Linha</option>
+                <option value="Rabisco">Rabisco</option>
+                <option value="Retângulo">Retângulo</option>
+                <option value="Oval">Oval</option>
+                <option value="Circulo">Circulo</option>
+                <option value="Polígono">Polígono</option>
+            </select>
+
+            <!-- Botões Salvar e Abrir -->
+            <button onclick="salvar()">Salvar</button>
+            <button onclick="abrir()">Abrir</button>
+        </div>
+
+        <!-- Canvas -->
+        <canvas id="canvasDesenho" width="600" height="600"></canvas>
+    </div>
+
+    <script>
+        // Simulação básica das ações do controlador
+        const canvas = document.getElementById('canvasDesenho');
+        const tipoFigura = document.getElementById('tipoFigura');
+
+        function salvar() {
+            alert("Ação do controlador: salvar_desenho()");
+        }
+
+        function abrir() {
+            alert("Ação do controlador: abrir_desenho()");
+        }
+
+        // Mock para eventos de mouse no canvas
+        canvas.addEventListener('mousedown', (e) => {
+            console.log(`Clique em: ${e.offsetX}, ${e.offsetY} | Tipo: ${tipoFigura.value}`);
+        });
+    </script>
+</body>
+</html>
