@@ -11,6 +11,7 @@ class ControladorDesenho:
         modelo: o Desenho que guarda as figuras do sistema.
         visao: a JanelaPrincipal que mostra a tela pro usuário.
 
+    @author Laila Beatriz
     @version 1.0
     @see modelo.desenho.Desenho
     @see visao.janela.JanelaPrincipal
