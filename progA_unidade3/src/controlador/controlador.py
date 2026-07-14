@@ -86,7 +86,7 @@ class ControladorDesenho:
 
     def duplo_clique(self, event, tipo_figura):
         """Só faz alguma coisa quando o tipo é 'Polígono' — é o duplo
-        clique que fecha o polígono em construção e manda ele pro
+        clique que cobra o polígono em construção e manda ele pro
         modelo.
 
         @author Laila Beatriz
@@ -99,15 +99,15 @@ class ControladorDesenho:
             self.modelo.figura_nova = None
             self.visao.atualizar_tela()
 
-    def salvar_figuras(nome_arquivo):
+    def salvar_desenho(self, nome_arquivo):
         """Chama o modelo pra salvar as figuras num arquivo.
 
         @author Laila Beatriz
         @param nome_arquivo caminho ou nome do arquivo onde vai salvar.
         """
-        self.modelo.salvar_figuras(nome_arquivo)
+        self.modelo.salvar_desenho(nome_arquivo)
 
-    def abrir_figuras(nome_arquivo):
+    def abrir_desenho(self, nome_arquivo):
         """Chama o modelo pra abrir um arquivo salvo antes, e depois
         atualiza a tela pra mostrar as figuras carregadas.
 
