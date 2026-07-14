@@ -1,6 +1,7 @@
 """Arquivo principal, é o que roda o programa. Cria o modelo, a visão
 e o controlador, liga tudo entre si e inicia a aplicação.
 
+@author Laila Beatriz
 @version 1.0
 @see modelo.desenho.Desenho
 @see visao.janela.JanelaPrincipal
