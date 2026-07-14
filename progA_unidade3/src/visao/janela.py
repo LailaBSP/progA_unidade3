@@ -15,6 +15,7 @@ class JanelaPrincipal:
         root: a janela principal do Tkinter.
         canvas: a área onde as figuras são desenhadas.
 
+    @author Laila Beatriz
     @version 1.0
     @see modelo.desenho.Desenho
     @see controlador.controlador.ControladorDesenho
@@ -86,7 +87,9 @@ class JanelaPrincipal:
 
     def iniciar(self):
         """Inicia o loop principal do Tkinter, deixando a janela
-        aberta e escutando os eventos do usuário."""
+        aberta e escutando os eventos do usuário.
+        @author Laila Beatriz
+        """
         self.root.mainloop()
 
     def salvar(self):
@@ -94,6 +97,7 @@ class JanelaPrincipal:
         janela padrão do sistema pra escolher onde salvar o arquivo
         de texto e, se um nome for escolhido, manda pro controlador
         salvar o desenho.
+        @author Laila Beatriz
         """
         nome_arquivo = filedialog.asksaveasfilename( #abre janela pra escolher onde salvar
             defaultextension=".txt", 
@@ -108,6 +112,7 @@ class JanelaPrincipal:
         janela padrão do sistema pra escolher o arquivo de texto e,
         se um arquivo for escolhido, manda pro controlador abrir o
         desenho salvo nele.
+        @author Laila Beatriz
         """
         nome_arquivo = filedialog.askopenfilename( #abre janela pra escolher arquivo
             filetypes=[("Arquivo de texto", "*.txt")]
