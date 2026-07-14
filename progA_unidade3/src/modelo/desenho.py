@@ -33,17 +33,17 @@ class Desenho:
         @author Lavínia Cerqueira
         @return lista com as figuras do desenho.
         """
-        return self._figuras
+         return self._figuras
     
     def limpar_figuras(self):
          """Apaga todas as figuras do desenho, deixando a lista vazia.
 
          @author Lavínia Cerqueira
          """
-        self._figuras.clear()
+         self._figuras.clear()
 
 #opcao para salvar o desenho em um arquivo de texto
-    def salvar_desenho(nome_arquivo):
+    def salvar_desenho(self, nome_arquivo):
         """Salva o desenho num arquivo de texto. Pra Rabisco e
         Poligono salva todos os pontos do traço, porque essas duas
         têm vários pontos; pras outras figuras (Linha, Retangulo,
@@ -53,7 +53,7 @@ class Desenho:
         @param nome_arquivo caminho do arquivo onde o desenho vai ser salvo.
         """
         with open(nome_arquivo, "w") as arquivo: #W = write, cria o arquivo se não existir e sobrescreve se existir
-            for figura in figuras:
+            for figura in self._figuras:
                 #Rabisco e poligono possuem vários pontos
                 if isinstance(figura, (figuras.Rabisco, figuras.Poligono)):
                     arquivo.write(type(figura).__name__)
@@ -70,7 +70,7 @@ class Desenho:
                         f"{figura.y2}\n"
                     )
 
-    def abrir_figuras(nome_arquivo):
+    def abrir_figuras(self, nome_arquivo):
         """Lê um arquivo salvo antes e reconstrói as figuras a partir
         dele, olhando o tipo de cada linha (Linha, Retangulo, Oval,
         Circulo, Rabisco ou Poligono).
@@ -78,8 +78,7 @@ class Desenho:
         @author Laila Beatriz
         @param nome_arquivo caminho do arquivo a ser aberto.
         """
-        global figuras
-        figuras.clear()
+        self._figuras.clear()
         with open(nome_arquivo, "r") as arquivo: #r = read (leitura)
             for linha in arquivo:
                 dados = linha.strip().split(";")
@@ -93,7 +92,7 @@ class Desenho:
                         int(dados[3]),
                         int(dados[4])
                     )
-                    figuras.append(figura)
+                    self._figuras.append(figura)
                 elif tipo == "Retangulo":
                     figura = figuras.Retangulo(
                         int(dados[1]),
@@ -103,7 +102,7 @@ class Desenho:
                         int(dados[3]),
                         int(dados[4])
                     )
-                    figuras.append(figura)
+                    self._figuras.append(figura)
                 elif tipo == "Oval":
                     figura = figuras.Oval(
                         int(dados[1]),
@@ -113,7 +112,7 @@ class Desenho:
                         int(dados[3]),
                         int(dados[4])
                     )
-                    figuras.append(figura)
+                    self._figuras.append(figura)
                 elif tipo == "Circulo":
                     figura = figuras.Circulo(
                         int(dados[1]),
@@ -123,10 +122,10 @@ class Desenho:
                         int(dados[3]),
                         int(dados[4])
                     )
-                    figuras.append(figura)
+                    self._figuras.append(figura)
                 elif tipo == "Rabisco":
                     primeiro = dados[1].split(",")
-                    figura = Rabisco(
+                    figura = figuras.Rabisco(
                         int(primeiro[0]),
                         int(primeiro[1])
                     )
@@ -136,7 +135,7 @@ class Desenho:
                         figura.pontos.append(
                             (int(x), int(y))
                         )
-                    figuras.append(figura)
+                    self._figuras.append(figura)
                 elif tipo == "Poligono":
                     primeiro = dados[1].split(",")
                     figura = figuras.Poligono(
@@ -149,4 +148,4 @@ class Desenho:
                         figura.pontos.append(
                             (int(x), int(y))
                         )
-                    figuras.append(figura)
+                    self._figuras.append(figura)
