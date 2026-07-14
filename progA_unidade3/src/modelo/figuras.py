@@ -17,7 +17,7 @@ class Figura(abc.ABC):
 
     Não pode ser instanciada direto, só serve pra ser herdada.
 
-    @author Laila Beatriz
+    @author Lavínia Cerqueira
     @version 1.0
     @since 1.0
     """
@@ -27,6 +27,7 @@ class Figura(abc.ABC):
         No começo x2 e y2 ficam iguais a x1 e y1, porque o usuário
         ainda não arrastou o mouse pra dar tamanho à figura.
 
+        @author Lavínia Cerqueira
         @param x1 coordenada x de onde o usuário clicou.
         @param y1 coordenada y de onde o usuário clicou.
         """
@@ -38,7 +39,8 @@ class Figura(abc.ABC):
     def atualizar(self, x2, y2):
         """Atualiza o ponto final da figura. É chamado toda vez que o
         mouse se move enquanto o usuário tá desenhando.
-
+        
+        @author Lavínia Cerqueira
         @param x2 nova posição x.
         @param y2 nova posição y.
         """
@@ -50,7 +52,8 @@ class Figura(abc.ABC):
         """Desenha a figura no canvas. Método abstrato — cada subclasse
         implementa do seu jeito, já que cada figura tem uma forma
         diferente.
-
+        
+        @author Lavínia Cerqueira
         @param canvas o Canvas do Tkinter onde a figura vai ser desenhada.
         @param tracejado se True, desenha em modo de prévia (tracejado), indicando que a figura ainda tá sendo criada.
         """
@@ -60,7 +63,8 @@ class Figura(abc.ABC):
         """Diz se a figura ainda não foi "desenhada de verdade" — ou
         seja, o usuário só clicou e ainda não arrastou o mouse pra dar
         tamanho a ela.
-
+        
+        @author Lavínia Cerqueira
         @return True se o ponto inicial e o final ainda são iguais; False caso contrário.
         """
         return (self.x1, self.y1) == (self.x2, self.y2)
@@ -70,6 +74,7 @@ class Linha(Figura):
     """A figura mais simples: uma linha reta do ponto inicial até o
     ponto final que o usuário arrastou.
 
+    @author Carolina Aragão
     @version 1.0
     @see Figura
     @since 1.0
@@ -77,6 +82,7 @@ class Linha(Figura):
     def desenhar(self, canvas, tracejado=False):
         """Desenha a linha no canvas.
 
+        @author Carolina Aragão
         @param canvas onde a linha vai ser desenhada.
         @param tracejado se True desenha tracejado (é a prévia enquanto o usuário ainda tá arrastando).
         """
@@ -96,7 +102,7 @@ class Rabisco(Figura):
     """Desenho livre, tipo quando dá pra desenhar à mão com o mouse.
     Fica guardando todos os pontos por onde o mouse passa enquanto o
     usuário arrasta, formando um traço com vários segmentos.
-
+    @author Carolina Aragão
     @version 1.0
     @see Figura
     @since 1.0
@@ -104,6 +110,7 @@ class Rabisco(Figura):
     def __init__(self, x1, y1):
         """Começa o rabisco guardando o primeiro ponto do traço.
 
+        @author Lavínia Cerqueira
         @param x1 coordenada x inicial.
         @param y1 coordenada y inicial.
         """
@@ -114,7 +121,8 @@ class Rabisco(Figura):
         """Aqui é diferente das outras figuras: em vez de só trocar
         x2 e y2, vai adicionando cada ponto novo numa lista, pra
         formar o traço todo.
-
+        
+        @author Lavínia Cerqueira
         @param x2 coordenada x do novo ponto do traço.
         @param y2 coordenada y do novo ponto do traço.
         """
@@ -124,7 +132,8 @@ class Rabisco(Figura):
         """Desenha o traço ligando todos os pontos guardados. Só
         desenha se tiver mais de um ponto, porque com um ponto só não
         dá pra formar nenhuma linha.
-
+        
+        @author Carolina Aragão
         @param canvas onde o rabisco vai ser desenhado.
         @param tracejado se True desenha o traço tracejado (prévia).
         """
@@ -135,7 +144,8 @@ class Rabisco(Figura):
     def esta_incompleta(self):
         """Considera o rabisco incompleto se só tiver 1 ponto (ainda
         não formou traço nenhum).
-
+        
+        @author Carolina Aragão
         @return True se a lista de pontos tiver 1 ou menos.
         """
         return len(self.pontos) <= 1
@@ -144,7 +154,8 @@ class Rabisco(Figura):
 class Retangulo(Figura):
     """Retângulo desenhado entre o ponto inicial e o ponto final do
     clique/arraste do usuário.
-
+    
+    @author Lavínia Cerqueira
     @version 1.0
     @see Figura
     @since 1.0
@@ -153,6 +164,7 @@ class Retangulo(Figura):
         """Desenha o retângulo. Quando tá em modo de prévia (tracejado)
         não preenche com a cor, mostra só o contorno.
 
+        @author Lavínia Cerqueira
         @param canvas onde o retângulo vai ser desenhado.
         @param tracejado se True fica sem preenchimento e com a borda tracejada.
         """
@@ -174,6 +186,7 @@ class Oval(Figura):
     """Oval (elipse) desenhado dentro da área retangular formada pelo
     ponto inicial e pelo ponto final.
 
+    @author Carolina Aragão
     @version 1.0
     @see Figura
     @see Circulo
@@ -183,6 +196,7 @@ class Oval(Figura):
         """Desenha o oval. Igual ao retângulo, em modo de prévia fica
         sem preenchimento.
 
+        @author Carolina Aragão
         @param canvas onde o oval vai ser desenhado.
         @param tracejado se True fica sem preenchimento e tracejado.
         """
