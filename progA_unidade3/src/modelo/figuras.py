@@ -204,6 +204,7 @@ class Circulo(Figura):
     serem iguais, pra sempre sair um círculo certinho em vez de uma
     elipse torta.
 
+    @author Laila Beatriz
     @version 1.0
     @see Figura
     @see Oval
@@ -215,6 +216,7 @@ class Circulo(Figura):
         força virar um quadrado por baixo dos panos (e por isso o
         oval desenhado dentro sai redondo).
 
+        @author Laila Beatriz
         @param x2 posição x atual do mouse.
         @param y2 posição y atual do mouse.
         """
@@ -227,6 +229,7 @@ class Circulo(Figura):
         """Desenha o círculo (na verdade usa create_oval, só que como
         o lado já foi forçado a ser igual, sai redondo).
 
+        @author Laila Beatriz
         @param canvas onde o círculo vai ser desenhado.
         @param tracejado se True fica sem preenchimento e tracejado.
         """
@@ -250,6 +253,7 @@ class Poligono(Figura):
     clique novo vira um vértice, e só termina quando dá um duplo
     clique.
 
+    @author Laila Beatriz
     @version 1.0
     @see Figura
     @since 1.0
@@ -258,6 +262,7 @@ class Poligono(Figura):
         """Cria o polígono com o primeiro vértice (o primeiro clique
         do usuário).
 
+        @author Laila Beatriz
         @param x1 coordenada x do primeiro vértice.
         @param y1 coordenada y do primeiro vértice.
         """
@@ -271,6 +276,7 @@ class Poligono(Figura):
         mouse tá agora (x_temp, y_temp) pra desenhar a linha de
         prévia até a posição atual.
 
+        @author Laila Beatriz
         @param x2 posição x atual do mouse.
         @param y2 posição y atual do mouse.
         """
@@ -282,6 +288,7 @@ class Poligono(Figura):
         novo do usuário, depois do primeiro (que já é feito no
         construtor).
 
+        @author Laila Beatriz
         @param x coordenada x do vértice novo.
         @param y coordenada y do vértice novo.
         """
@@ -293,6 +300,7 @@ class Poligono(Figura):
         atual do mouse. Fora disso, desenha o polígono fechado e
         preenchido.
 
+        @author Laila Beatriz
         @param canvas onde o polígono vai ser desenhado.
         @param tracejado se True mostra só o contorno em construção, ainda aberto.
         """
@@ -327,6 +335,7 @@ class Poligono(Figura):
         área, então considera incompleto enquanto tiver menos que
         isso.
 
+        @author Laila Beatriz 
         @return True se tiver menos de 3 vértices.
         """
         return len(self.pontos) < 3
