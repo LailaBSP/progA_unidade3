@@ -27,7 +27,8 @@ class JanelaPrincipal:
         do canvas com os métodos do controlador (que só vai existir
         de verdade depois, então essas chamadas ficam "esperando" o
         associar_controlador ser chamado).
-
+        
+        @author Carolina Aragão 
         @param modelo_desenho o Desenho que vai fornecer as figuras a serem mostradas na tela.
         """
         self.modelo = modelo_desenho
@@ -68,7 +69,8 @@ class JanelaPrincipal:
          """Liga o controlador na janela. É feito à parte porque o
         controlador só pode ser criado depois que a janela já existe
         (ver main.py).
-
+        
+        @author Lavínia Cerqueira
         @param controlador o ControladorDesenho que vai tratar os eventos do mouse e as ações de salvar/abrir.
         """
         self.controlador = controlador
@@ -77,6 +79,8 @@ class JanelaPrincipal:
          """Redesenha tudo: limpa o canvas e desenha de novo todas as
         figuras que já estão no modelo, incluindo a que tá sendo
         criada no momento (mostrada em modo tracejado, como prévia).
+
+        @author Lavínia Cerqueira 
         """
         self.canvas.delete("all")
         # Lê as figuras diretamente do modelo
