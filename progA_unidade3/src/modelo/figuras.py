@@ -17,6 +17,7 @@ class Figura(abc.ABC):
 
     Não pode ser instanciada direto, só serve pra ser herdada.
 
+    @author Laila Beatriz
     @version 1.0
     @since 1.0
     """
