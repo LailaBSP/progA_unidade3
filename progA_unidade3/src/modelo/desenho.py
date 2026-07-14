@@ -8,18 +8,21 @@ class Desenho:
     Attributes:
         _figuras: lista com as figuras que já foram confirmadas.
         figura_nova: a figura que tá sendo desenhada agora, ou None se não tiver nenhuma no momento.
-
+    @author Carolina Aragão
     @version 1.0
     @since 1.0
     """
     def __init__(self):
-        """Começa sem nenhuma figura desenhada ainda."""
+        """Começa sem nenhuma figura desenhada ainda.
+        @author Carolina Aragão
+        """
         self._figuras = []        
         self.figura_nova = None  
 
     def adicionar_figura(self, figura):
         """Adiciona uma figura já pronta na lista de figuras.
 
+        @author Carolina Aragão
         @param figura a figura (Linha, Retangulo, Circulo etc) já finalizada.
         """
         self._figuras.append(figura)
@@ -27,12 +30,16 @@ class Desenho:
     def obter_figuras(self):
          """Retorna todas as figuras que já foram desenhadas.
 
+        @author Lavínia Cerqueira
         @return lista com as figuras do desenho.
         """
         return self._figuras
     
     def limpar_figuras(self):
-         """Apaga todas as figuras do desenho, deixando a lista vazia."""
+         """Apaga todas as figuras do desenho, deixando a lista vazia.
+
+         @author Lavínia Cerqueira
+         """
         self._figuras.clear()
 
 #opcao para salvar o desenho em um arquivo de texto
