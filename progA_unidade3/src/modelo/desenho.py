@@ -42,6 +42,7 @@ class Desenho:
         têm vários pontos; pras outras figuras (Linha, Retangulo,
         Oval, Circulo) salva só as coordenadas x1, y1, x2, y2.
 
+        @author Laila Beatriz
         @param nome_arquivo caminho do arquivo onde o desenho vai ser salvo.
         """
         with open(nome_arquivo, "w") as arquivo: #W = write, cria o arquivo se não existir e sobrescreve se existir
@@ -67,6 +68,7 @@ class Desenho:
         dele, olhando o tipo de cada linha (Linha, Retangulo, Oval,
         Circulo, Rabisco ou Poligono).
 
+        @author Laila Beatriz
         @param nome_arquivo caminho do arquivo a ser aberto.
         """
         global figuras
