@@ -22,7 +22,7 @@ class JanelaPrincipal:
     @since 1.0
     """
     def __init__(self, modelo_desenho):
-         """Monta a janela inteira: o menu de tipos de figura, os
+        """Monta a janela inteira: o menu de tipos de figura, os
         botões Salvar/Abrir e o canvas, e já liga os eventos do mouse
         do canvas com os métodos do controlador (que só vai existir
         de verdade depois, então essas chamadas ficam "esperando" o
@@ -66,7 +66,7 @@ class JanelaPrincipal:
         self.canvas.bind('<Double-Button-1>', lambda e: self.controlador.duplo_clique(e, self.tipo_figura_var.get()))
 
     def associar_controlador(self, controlador):
-         """Liga o controlador na janela. É feito à parte porque o
+        """Liga o controlador na janela. É feito à parte porque o
         controlador só pode ser criado depois que a janela já existe
         (ver main.py).
         
@@ -76,7 +76,7 @@ class JanelaPrincipal:
         self.controlador = controlador
 
     def atualizar_tela(self):
-         """Redesenha tudo: limpa o canvas e desenha de novo todas as
+        """Redesenha tudo: limpa o canvas e desenha de novo todas as
         figuras que já estão no modelo, incluindo a que tá sendo
         criada no momento (mostrada em modo tracejado, como prévia).
 
@@ -97,7 +97,7 @@ class JanelaPrincipal:
         self.root.mainloop()
 
     def salvar(self):
-         """Chamado quando o usuário clica no botão Salvar. Abre a
+        """Chamado quando o usuário clica no botão Salvar. Abre a
         janela padrão do sistema pra escolher onde salvar o arquivo
         de texto e, se um nome for escolhido, manda pro controlador
         salvar o desenho.
@@ -112,7 +112,7 @@ class JanelaPrincipal:
 
 
     def abrir(self):
-         """Chamado quando o usuário clica no botão Abrir. Abre a
+        """Chamado quando o usuário clica no botão Abrir. Abre a
         janela padrão do sistema pra escolher o arquivo de texto e,
         se um arquivo for escolhido, manda pro controlador abrir o
         desenho salvo nele.
