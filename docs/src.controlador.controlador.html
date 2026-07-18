@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module src.controlador.controlador</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="src.html" class="white">src</a>.<a href="src.controlador.html" class="white">controlador</a>.controlador</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cramir%5Cdownloads%5Cproga_unidade3-main%20%282%29%5Cproga_unidade3-main%5Cproga_unidade3%5Csrc%5Ccontrolador%5Ccontrolador.py">c:\users\ramir\downloads\proga_unidade3-main (2)\proga_unidade3-main\proga_unidade3\src\controlador\controlador.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="src.controlador.controlador.html#ControladorDesenho">ControladorDesenho</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="ControladorDesenho">class <strong>ControladorDesenho</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#ControladorDesenho">ControladorDesenho</a>(modelo_desenho,&nbsp;visao_janela)<br>
+&nbsp;<br>
+Este&nbsp;é&nbsp;o&nbsp;Controlador&nbsp;do&nbsp;padrão&nbsp;MVC.&nbsp;<br>
+&nbsp;<br>
+Atua&nbsp;como&nbsp;intermediário&nbsp;entre&nbsp;a&nbsp;tela&nbsp;(visão)&nbsp;e&nbsp;o&nbsp;modelo,&nbsp;tratando&nbsp;os&nbsp;<br>
+eventos&nbsp;de&nbsp;mouse&nbsp;(clique,&nbsp;arrastar,&nbsp;soltar,&nbsp;duplo&nbsp;clique)&nbsp;e&nbsp;transformando-os&nbsp;<br>
+em&nbsp;ações&nbsp;sobre&nbsp;as&nbsp;figuras&nbsp;do&nbsp;modelo.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modelo:&nbsp;O&nbsp;Desenho&nbsp;que&nbsp;armazena&nbsp;as&nbsp;figuras&nbsp;do&nbsp;sistema.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;visao:&nbsp;A&nbsp;JanelaPrincipal&nbsp;que&nbsp;exibe&nbsp;a&nbsp;tela&nbsp;para&nbsp;o&nbsp;usuário.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@version&nbsp;1.0<br>
+@see&nbsp;modelo.desenho.Desenho<br>
+@see&nbsp;visao.janela.JanelaPrincipal<br>
+@since&nbsp;1.0<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="ControladorDesenho-__init__"><strong>__init__</strong></a>(self, modelo_desenho, visao_janela)</dt><dd><span class="code">Armazena&nbsp;as&nbsp;referências&nbsp;do&nbsp;modelo&nbsp;e&nbsp;da&nbsp;visão&nbsp;que&nbsp;o&nbsp;controlador&nbsp;vai&nbsp;utilizar.<br>
+&nbsp;<br>
+@param&nbsp;modelo_desenho&nbsp;O&nbsp;Desenho&nbsp;usado&nbsp;no&nbsp;programa.<br>
+@param&nbsp;visao_janela&nbsp;A&nbsp;JanelaPrincipal&nbsp;usada&nbsp;no&nbsp;programa.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-abrir_desenho"><strong>abrir_desenho</strong></a>(self, nome_arquivo)</dt><dd><span class="code">Solicita&nbsp;ao&nbsp;modelo&nbsp;a&nbsp;leitura&nbsp;de&nbsp;um&nbsp;arquivo&nbsp;salvo&nbsp;e&nbsp;atualiza&nbsp;a&nbsp;interface&nbsp;de&nbsp;exibição.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;nome_arquivo&nbsp;Caminho&nbsp;ou&nbsp;nome&nbsp;do&nbsp;arquivo&nbsp;a&nbsp;ser&nbsp;lido.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-atualizar_movimento"><strong>atualizar_movimento</strong></a>(self, event)</dt><dd><span class="code">Chamado&nbsp;continuamente&nbsp;enquanto&nbsp;o&nbsp;mouse&nbsp;se&nbsp;move&nbsp;com&nbsp;o&nbsp;botão&nbsp;pressionado.<br>
+&nbsp;<br>
+Atualiza&nbsp;em&nbsp;tempo&nbsp;real&nbsp;a&nbsp;figura&nbsp;que&nbsp;está&nbsp;sendo&nbsp;criada&nbsp;no&nbsp;momento.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;event&nbsp;Evento&nbsp;do&nbsp;Tkinter&nbsp;contendo&nbsp;a&nbsp;posição&nbsp;atual&nbsp;do&nbsp;mouse.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-duplo_clique"><strong>duplo_clique</strong></a>(self, event)</dt><dd><span class="code">Trata&nbsp;o&nbsp;evento&nbsp;de&nbsp;duplo&nbsp;clique&nbsp;para&nbsp;fechamento&nbsp;de&nbsp;geometrias&nbsp;complexas.<br>
+&nbsp;<br>
+Atua&nbsp;especificamente&nbsp;quando&nbsp;o&nbsp;tipo&nbsp;de&nbsp;figura&nbsp;é&nbsp;'Polígono',&nbsp;momento&nbsp;em&nbsp;que&nbsp;<br>
+conclui&nbsp;o&nbsp;polígono&nbsp;em&nbsp;construção&nbsp;e&nbsp;o&nbsp;envia&nbsp;para&nbsp;o&nbsp;modelo.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;event&nbsp;Evento&nbsp;do&nbsp;Tkinter&nbsp;associado&nbsp;ao&nbsp;duplo&nbsp;clique.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-gerenciar_clique"><strong>gerenciar_clique</strong></a>(self, event)</dt><dd><span class="code">Encaminha&nbsp;o&nbsp;evento&nbsp;do&nbsp;primeiro&nbsp;clique&nbsp;do&nbsp;mouse&nbsp;para&nbsp;o&nbsp;estado&nbsp;atual&nbsp;do&nbsp;controlador.<br>
+&nbsp;<br>
+O&nbsp;estado&nbsp;ativo&nbsp;é&nbsp;responsável&nbsp;por&nbsp;decidir&nbsp;como&nbsp;tratar&nbsp;o&nbsp;clique,&nbsp;de&nbsp;acordo&nbsp;<br>
+com&nbsp;a&nbsp;ferramenta&nbsp;selecionada&nbsp;(Linha,&nbsp;Rabisco,&nbsp;Retângulo,&nbsp;Oval,&nbsp;Círculo&nbsp;ou&nbsp;Polígono).<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;event&nbsp;Evento&nbsp;do&nbsp;Tkinter&nbsp;com&nbsp;as&nbsp;coordenadas&nbsp;do&nbsp;clique&nbsp;(event.x,&nbsp;event.y).</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-salvar_desenho"><strong>salvar_desenho</strong></a>(self, nome_arquivo)</dt><dd><span class="code">Solicita&nbsp;ao&nbsp;modelo&nbsp;a&nbsp;exportação&nbsp;e&nbsp;salvamento&nbsp;das&nbsp;figuras&nbsp;em&nbsp;um&nbsp;arquivo.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;nome_arquivo&nbsp;Caminho&nbsp;ou&nbsp;nome&nbsp;do&nbsp;arquivo&nbsp;de&nbsp;destino.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-soltar_clique"><strong>soltar_clique</strong></a>(self, event)</dt><dd><span class="code">Chamado&nbsp;quando&nbsp;o&nbsp;usuário&nbsp;solta&nbsp;o&nbsp;botão&nbsp;do&nbsp;mouse&nbsp;para&nbsp;finalizar&nbsp;a&nbsp;figura.<br>
+&nbsp;<br>
+Neste&nbsp;momento,&nbsp;a&nbsp;figura&nbsp;concluída&nbsp;é&nbsp;enviada&nbsp;para&nbsp;o&nbsp;modelo.&nbsp;A&nbsp;única&nbsp;exceção&nbsp;<br>
+é&nbsp;o&nbsp;Polígono,&nbsp;que&nbsp;exige&nbsp;um&nbsp;duplo&nbsp;clique&nbsp;para&nbsp;ser&nbsp;finalizado;&nbsp;portanto,&nbsp;<br>
+este&nbsp;método&nbsp;não&nbsp;realiza&nbsp;ações&nbsp;para&nbsp;esse&nbsp;caso.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;event&nbsp;Evento&nbsp;do&nbsp;Tkinter&nbsp;associado&nbsp;ao&nbsp;momento&nbsp;em&nbsp;que&nbsp;o&nbsp;botão&nbsp;é&nbsp;solto.</span></dd></dl>
+
+<dl><dt><a name="ControladorDesenho-trocar_estado"><strong>trocar_estado</strong></a>(self, novo_estado)</dt><dd><span class="code">Modifica&nbsp;o&nbsp;estado&nbsp;atual&nbsp;do&nbsp;controlador&nbsp;para&nbsp;gerenciar&nbsp;uma&nbsp;nova&nbsp;ferramenta.<br>
+&nbsp;<br>
+@author&nbsp;Laila&nbsp;Beatriz<br>
+@param&nbsp;novo_estado&nbsp;A&nbsp;nova&nbsp;instância&nbsp;de&nbsp;Estado&nbsp;que&nbsp;assumirá&nbsp;o&nbsp;controle&nbsp;das&nbsp;ações.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
