@@ -4,6 +4,14 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 
+# Importação dos estados para permitir a troca dinâmica
+from controlador.estado.estado_linha import EstadoLinha
+from controlador.estado.estado_rabisco import EstadoRabisco
+from controlador.estado.estado_retangulo import EstadoRetangulo
+from controlador.estado.estado_oval import EstadoOval
+from controlador.estado.estado_circulo import EstadoCirculo
+from controlador.estado.estado_poligono import EstadoPoligono
+
 class JanelaPrincipal:
     """Essa é a Visão do padrão MVC — a tela que o usuário vê e mexe.
     Monta a janela, o menu de escolher o tipo de figura, os botões de
@@ -41,6 +49,10 @@ class JanelaPrincipal:
         self.frame.pack()
         
         self.tipo_figura_var = StringVar(self.root, value='Linha')
+        
+        # Rastreia as mudanças de seleção no menu para alterar o estado do controlador
+        self.tipo_figura_var.trace_add("write", self.ao_mudar_ferramenta)
+        
         self.option_menu = ttk.OptionMenu(self.frame, self.tipo_figura_var, 'Linha', 'Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo', 'Polígono')
         self.option_menu.grid(column=1, row=0, sticky=W, padx=5, pady=5)
 
@@ -59,11 +71,32 @@ class JanelaPrincipal:
         self.canvas = Canvas(self.frame, bg='pink', width=600, height=600)
         self.canvas.grid(column=0, row=1, columnspan=2, sticky=W, padx=5, pady=5)
 
-        # Associa os eventos passando as referências para o controlador
-        self.canvas.bind('<ButtonPress-1>', lambda e: self.controlador.gerenciar_clique(e, self.tipo_figura_var.get()))
+        self.canvas.bind('<ButtonPress-1>', lambda e: self.controlador.gerenciar_clique(e))
         self.canvas.bind('<B1-Motion>', lambda e: self.controlador.atualizar_movimento(e))
-        self.canvas.bind('<ButtonRelease-1>', lambda e: self.controlador.soltar_clique(e, self.tipo_figura_var.get()))
-        self.canvas.bind('<Double-Button-1>', lambda e: self.controlador.duplo_clique(e, self.tipo_figura_var.get()))
+        self.canvas.bind('<ButtonRelease-1>', lambda e: self.controlador.soltar_clique(e))
+        self.canvas.bind('<Double-Button-1>', lambda e: self.controlador.duplo_clique(e))
+
+    def ao_mudar_ferramenta(self, *args):
+        """Método acionado automaticamente quando o usuário escolhe outra ferramenta no menu.
+        Muda o estado do controlador conforme a seleção atual.
+        """
+        if not self.controlador:
+            return
+            
+        selecao = self.tipo_figura_var.get()
+        
+        if selecao == 'Linha':
+            self.controlador.trocar_estado(EstadoLinha(self.controlador))
+        elif selecao == 'Rabisco':
+            self.controlador.trocar_estado(EstadoRabisco(self.controlador))
+        elif selecao == 'Retângulo':
+            self.controlador.trocar_estado(EstadoRetangulo(self.controlador))
+        elif selecao == 'Oval':
+            self.controlador.trocar_estado(EstadoOval(self.controlador))
+        elif selecao == 'Circulo':
+            self.controlador.trocar_estado(EstadoCirculo(self.controlador))
+        elif selecao == 'Polígono':
+            self.controlador.trocar_estado(EstadoPoligono(self.controlador))
 
     def associar_controlador(self, controlador):
         """Liga o controlador na janela. É feito à parte porque o
@@ -83,7 +116,6 @@ class JanelaPrincipal:
         @author Lavínia Cerqueira 
         """
         self.canvas.delete("all")
-        # Lê as figuras diretamente do modelo
         for fig in self.modelo.obter_figuras():
             fig.desenhar(self.canvas, tracejado=False)
         if self.modelo.figura_nova:
@@ -103,13 +135,12 @@ class JanelaPrincipal:
         salvar o desenho.
         @author Laila Beatriz
         """
-        nome_arquivo = filedialog.asksaveasfilename( #abre janela pra escolher onde salvar
+        nome_arquivo = filedialog.asksaveasfilename(
             defaultextension=".txt", 
             filetypes=[("Arquivo de texto", "*.txt")]
         )
         if nome_arquivo:
             self.controlador.salvar_desenho(nome_arquivo)
-
 
     def abrir(self):
         """Chamado quando o usuário clica no botão Abrir. Abre a
@@ -118,7 +149,7 @@ class JanelaPrincipal:
         desenho salvo nele.
         @author Laila Beatriz
         """
-        nome_arquivo = filedialog.askopenfilename( #abre janela pra escolher arquivo
+        nome_arquivo = filedialog.askopenfilename(
             filetypes=[("Arquivo de texto", "*.txt")]
         )
         if nome_arquivo:
