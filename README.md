@@ -48,21 +48,33 @@ adicionar_ponto()
 desenhar()
 esta_incompleta()
 Total: 18 métodos
-Funções do controlador (6)
-configurar()
+
+Funções do controlador (8)
+Em controlador.py:
+__init__()
 gerenciar_clique()
-atualizar_figura_nova()
-incluir_figura_nova()
-finalizar_poligono()
-desenhar_tudo()
-Total: 6 funções
-Função da visão (1)
+atualizar_movimento()
+soltar_clique()
+duplo_clique()
+salvar_desenho()
+abrir_desenho()
+trocar_estado()
+Total: 8 funções
+
+Funções da visão (7)
 Em janela.py:
+__init__()
+ao_mudar_ferramenta()
+associar_controlador()
+atualizar_tela()
 iniciar()
-Total: 1 função
+salvar()
+abrir()
+Total: 7 funções
+
 Total do projeto
-18 métodos (classes)
-7 funções (controlador.py + janela.py)
+18 métodos (classes de figuras e desenho)
+15 funções/métodos (controlador.py + janela.py)
 
 ## Como visualizar a documentação
 A documentação HTML gerada pelo Pydoc está na pasta:
