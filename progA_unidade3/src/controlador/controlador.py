@@ -26,78 +26,56 @@ class ControladorDesenho:
         """
         self.modelo = modelo_desenho
         self.visao = visao_janela
+        self.estado_atual = None  
 
     def gerenciar_clique(self, event, tipo_figura):
-        """Trata o primeiro clique do mouse, criando uma figura nova
-        do tipo escolhido no menu.
+        """Encaminha o evento do primeiro clique do mouse para o estado
+        atual do controlador.
 
-        O Polígono é tratado diferente: cada clique novo adiciona um
-        vértice na figura, em vez de criar uma figura do zero a cada
-        clique (só cria uma nova no primeiro clique, quando ainda não
-        tem nenhum polígono em construção).
+        O estado ativo é responsável por decidir como tratar o clique,
+        de acordo com a ferramenta selecionada (Linha, Rabisco,
+        Retângulo, Oval, Círculo ou Polígono).
 
         @author Laila Beatriz
         @param event evento do Tkinter com as coordenadas do clique (event.x, event.y).
-        @param tipo_figura o tipo escolhido no menu ('Linha', 'Rabisco', 'Retângulo', 'Oval', 'Circulo' ou 'Polígono').
+        @param tipo_figura tipo da ferramenta selecionada no menu.
         """
-        classes_figuras = {
-            'Linha': Linha, 'Rabisco': Rabisco, 'Retângulo': Retangulo,
-            'Oval': Oval, 'Circulo': Circulo, 'Polígono': Poligono
-        }
-
-        if tipo_figura == 'Polígono':
-            if self.modelo.figura_nova is None:
-                self.modelo.figura_nova = Poligono(event.x, event.y)
-            else:
-                self.modelo.figura_nova.adicionar_ponto(event.x, event.y)
-        else:
-            classe = classes_figuras.get(tipo_figura, Linha)
-            self.modelo.figura_nova = classe(event.x, event.y)
-        
-        self.visao.atualizar_tela()
+        self.estado.mouse_pressionado(event, tipo_figura)
 
     def atualizar_movimento(self, event):
-        """Chamado toda vez que o mouse se move com o botão apertado.
-        Vai atualizando a figura que tá sendo criada no momento.
+        """Chamado continuamente enquanto o mouse se move com o botão pressionado.
 
-        @param event evento do Tkinter com a posição atual do mouse.
+        Atualiza em tempo real a figura que está sendo criada no momento.
+
+        @author Laila Beatriz
+        @param event Evento do Tkinter contendo a posição atual do mouse.
         """
-        if self.modelo.figura_nova:
-            self.modelo.figura_nova.atualizar(event.x, event.y)
-            self.visao.atualizar_tela()
+        self.estado.mouse_arrastado(event)
 
     def soltar_clique(self, event, tipo_figura):
-        """Chamado quando o usuário solta o botão do mouse — é aqui
-        que a figura é finalizada e vai pro modelo. Exceção é o
-        Polígono, que só termina no duplo clique, então esse método
-        não faz nada nesse caso.
+        """Chamado quando o usuário solta o botão do mouse para finalizar a figura.
+
+        Neste momento, a figura concluída é enviada para o modelo. A única exceção 
+        é o Polígono, que exige um duplo clique para ser finalizado; portanto, 
+        este método não realiza ações para esse caso.
 
         @author Laila Beatriz
-        @param event evento do Tkinter associado ao soltar do clique.
-        @param tipo_figura tipo da figura que tava sendo criada.
+        @param event Evento do Tkinter associado ao momento em que o botão é solto.
+        @param tipo_figura O tipo da figura que estava sendo desenhada.
         """
-        if tipo_figura == 'Polígono':
-            return
-
-        if self.modelo.figura_nova and not self.modelo.figura_nova.esta_incompleta():
-            self.modelo.adicionar_figura(self.modelo.figura_nova)
-        self.modelo.figura_nova = None
-        self.visao.atualizar_tela()
+        self.estado.mouse_solto(event)
 
     def duplo_clique(self, event, tipo_figura):
-        """Só faz alguma coisa quando o tipo é 'Polígono' — é o duplo
-        clique que cobra o polígono em construção e manda ele pro
-        modelo.
+        """Trata o evento de duplo clique para fechamento de geometrias complexas.
+
+        Atua especificamente quando o tipo de figura é 'Polígono', momento em que 
+        conclui o polígono em construção e o envia para o modelo.
 
         @author Laila Beatriz
-        @param event evento do Tkinter associado ao duplo clique.
-        @param tipo_figura tipo da figura sendo criada (só funciona quando é 'Polígono').
+        @param event Evento do Tkinter associado ao duplo clique.
+        @param tipo_figura Tipo da figura sendo criada (comportamento restrito a 'Polígono').
         """
-        if tipo_figura == 'Polígono' and self.modelo.figura_nova:
-            if not self.modelo.figura_nova.esta_incompleta():
-                self.modelo.adicionar_figura(self.modelo.figura_nova)
-            self.modelo.figura_nova = None
-            self.visao.atualizar_tela()
+        self.estado.duplo_clique(event)
 
     def salvar_desenho(self, nome_arquivo):
         """Chama o modelo pra salvar as figuras num arquivo.
@@ -116,3 +94,11 @@ class ControladorDesenho:
         """
         self.modelo.abrir_figuras(nome_arquivo)
         self.visao.atualizar_tela()
+
+    def trocar_estado(self, novo_estado):
+        """Troca o estado atual do controlador para o novo estado.
+
+        @author Laila Beatriz
+        @param novo_estado a nova instância de Estado que vai ser usada.
+        """
+        self.estado_atual = novo_estado
